@@ -9,9 +9,9 @@ A function ready to be deployed to a OpenFAAS server.
 It takes a HTTP POST request containing a pre-defined json structure:
 ```json
 {
-    "receiver": string,
-    "subject": string,
-    "content": [string, string, string]
+    "receiver": "string",
+    "subject": "string",
+    "content": ["string", "string", "string"]
 }
 ```
 
@@ -32,6 +32,6 @@ The contents can contain either plain-text or HTML as long as it is a string!
 
 
 ## Credits
-[OpenFAAS]("https://github.com/openfaas/faas") for being awesome and open-sourcing their FAAS software
+[OpenFAAS](https://github.com/openfaas/faas) for being awesome and open-sourcing their FAAS software
 
-[Yagmail]("https://github.com/kootenpv/yagmail") for being awesome and open-sourcing mailclient
+[Yagmail](https://github.com/kootenpv/yagmail) for being awesome and open-sourcing mailclient
