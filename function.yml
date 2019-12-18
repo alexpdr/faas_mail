@@ -6,5 +6,5 @@ functions:
   faas-sendmail:
     lang: python3
     handler: ./function
-    image: function:latest
+    image: alexpdr/faas-sendmail:latest
 
