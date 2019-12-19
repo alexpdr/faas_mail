@@ -1,4 +1,3 @@
-import os
 import logging
 import json as JSON
 import yagmail
@@ -21,12 +20,27 @@ def handle(req):
     Content can be HTML in string form or plain-text
     """
 
-    try:  # To retrieve ENV variables
-        user: str = os.getenv('EMAIL_USERNAME')
-        password: str = os.getenv('EMAIL_PASSWORD')
-        smtp_server: str = os.getenv('EMAIL_SMTP')
-    except KeyError:
-        logging.warning('Could not load ENV variables')
+    SECRETS_DIR: str = '/var/openfaas/secrets/'
+    SECRET_USER: str = 'sendmail-username'
+    SECRET_PASSWORD: str = 'sendmail-password'
+    SECRET_SMTP: str = 'sendmail-smtp'
+
+    USER: str
+    PASSWORD: str
+    SMTP_SERVER: str
+
+    try:  # To retrieve SECRETS from storage
+        with open(SECRETS_DIR+SECRET_USER, 'r') as file:
+            USER = file.read().strip()
+            logging.info(USER)
+        with open(SECRETS_DIR+SECRET_PASSWORD, 'r') as file:
+            PASSWORD = file.read().strip()
+            logging.info(PASSWORD)
+        with open(SECRETS_DIR+SECRET_SMTP, 'r') as file:
+            SMTP_SERVER = file.read().strip()
+            logging.info(SMTP_SERVER)
+    except FileNotFoundError:
+        logging.warning('Could not load SECRETS from storage')
         return JSON.dumps({
             'status': 500,
             'message': 'Internal Server Error'
@@ -50,7 +64,7 @@ def handle(req):
             'message': 'Internal Server Error, cannot load REQ variables'
         })
 
-    with yagmail.SMTP(user, password, smtp_server) as server:
+    with yagmail.SMTP(USER, PASSWORD, SMTP_SERVER) as server:
         server.send(
             to=receiver,
             subject=subject,

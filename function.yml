@@ -6,5 +6,10 @@ functions:
   faas-sendmail:
     lang: python3
     handler: ./function
-    image: alexpdr/faas-sendmail:latest
-
+    image: alexpdr/faas-sendmail:0.1.2
+    environment:
+      write_debug: true
+    secrets:
+      - sendmail-username
+      - sendmail-password
+      - sendmail-smtp
