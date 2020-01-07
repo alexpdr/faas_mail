@@ -1,0 +1,3 @@
+[submodule "faas_templates/template"]
+	path = faas_templates/template
+	url = git@gitlab.com:youngonesworks/internal-projects/faas_templates.git
